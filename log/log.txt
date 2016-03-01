@@ -1,0 +1,2 @@
+hello #<TCPSocket:0x007fba0d888c08> joined on: (2016-03-01 15:39:58 +0800)
+hy #<TCPSocket:0x007fba0d888758> joined on: (2016-03-01 15:40:43 +0800)
