@@ -31,4 +31,6 @@ class Client
   end
 end
 
-Client.new('localhost', 2000)
+server_ip = '192.168.1.7'
+port      = 2000 
+Client.new(server_ip, port)

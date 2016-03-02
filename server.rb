@@ -1,4 +1,5 @@
 require 'socket'
+require_relative 'ip_finder'
 
 =begin
 has previews
@@ -26,7 +27,9 @@ class Server
 	def run
     loop do
       Thread.start(@server.accept) do |client|
+        puts "#{client} attempting to connect"
         client_name = get_client_name(client)
+        puts "#{client_name}: #{client} joined"
         write_to_log("#{client_name} #{client} joined on: (#{Time.now})")
         @connections[:clients][client_name] = client
         client.puts "Connection Established #{client_name}"
@@ -51,6 +54,7 @@ end
   def listen_user_msg(client_name, client)
     loop do
       msg = client.gets.chomp
+      puts "received (#{msg}) from: #{client_name}"
       display_msg_to_all_clients(msg, client_name)
     end
   end
@@ -60,9 +64,11 @@ end
   end
 
   def write_to_log(text)
+    puts "Attempting to write to log"
     @log.puts text
     @log.close
   end
 end
 
-Server.new('localhost', 2000)
+hostname = IP_FIND.get_first_ip
+Server.new(hostname, 2000)
